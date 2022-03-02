@@ -14,6 +14,23 @@ RSpec.configure do |config|
       paths: {},
       components: {
         schemas: {
+          Company: {
+            type: :object,
+            properties: {
+              id: { type: :string },
+              type: { type: :string },
+              attributes: {
+                type: :object,
+                properties: {
+                  name: { type: :string, example: 'Company name' },
+                  cnpj: { type: :string, example: '01.123.456/0001-01' },
+                  email: { type: :string, example: 'name@company.com' },
+                  created_at: { type: :string, example: '2020-01-01T00:00:00.000Z' },
+                  updated_at: { type: :string, example: '2020-01-01T00:00:00.000Z' }
+                }
+              }
+            }
+          }
         }
       },
       servers: [

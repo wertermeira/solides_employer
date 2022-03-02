@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe CompanyJbuilder do
   let(:company) { create(:company) }
-  let(:estructure) do
+  let(:structure) do
     {
       id: company.id,
       type: 'companies',
@@ -18,7 +18,7 @@ RSpec.describe CompanyJbuilder do
 
   describe '#call' do
     it do
-      expect(described_class.new(company).call).to eq(estructure.deep_stringify_keys)
+      expect(described_class.new(company).call).to eq(structure.deep_stringify_keys)
     end
   end
 end

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe OccupationJbuilder do
   let(:occupation) { create(:occupation) }
-  let(:estructure) do
+  let(:structure) do
     {
       id: occupation.id,
       type: 'occupations',
@@ -17,7 +17,7 @@ RSpec.describe OccupationJbuilder do
 
   describe '#call' do
     it do
-      expect(described_class.new(occupation).call).to eq(estructure.deep_stringify_keys)
+      expect(described_class.new(occupation).call).to eq(structure.deep_stringify_keys)
     end
   end
 end

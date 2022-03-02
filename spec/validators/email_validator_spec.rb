@@ -11,8 +11,18 @@ end
 RSpec.describe EmailValidator, type: :model do
   subject(:model) { Test::EmailValidatable.new 'test@mail.de' }
 
-  describe '#valid?' do
-    it { is_expected.to be_valid }
+  describe '.valid' do
+    context 'when valid' do
+      it { is_expected.to be_valid }
+    end
+
+    context 'when invalid' do
+      it do
+        model.email = 'test@mail'
+        model.valid?
+        expect(model.errors[:email]).to match_array(I18n.t('errors.messages.invalid_email'))
+      end
+    end
   end
 
   describe '#invalid?' do

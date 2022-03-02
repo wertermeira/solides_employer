@@ -31,3 +31,7 @@
 
 en:
   hello: "Hello world"
+  errors:
+    messages:
+      invalid_email: Invalid email
+      invalid_cnpj: Invalid Cnpj

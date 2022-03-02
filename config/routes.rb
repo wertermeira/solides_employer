@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   mount Rswag::Api::Engine => '/api-docs'
 
   constraints format: :json do
-    resources :companies
+    resources :companies do
+      resources :occupations, module: :companies
+    end
   end
 end

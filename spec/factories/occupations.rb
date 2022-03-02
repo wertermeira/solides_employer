@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :occupation do
-    name { "MyString" }
-    active { false }
-    company { nil }
+    name { Faker::Job.title }
+    active { true }
+    company { create(:company) }
   end
 end

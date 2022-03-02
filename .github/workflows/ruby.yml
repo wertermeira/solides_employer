@@ -35,8 +35,8 @@ jobs:
       - name: Install gems
         run: |
           gem install bundler -v '2.2.17'
-          bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
+          bundle config path vendor/bundle
 
       - name: Setup Database
         run: |

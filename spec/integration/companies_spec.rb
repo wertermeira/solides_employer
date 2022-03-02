@@ -8,6 +8,11 @@ RSpec.describe '/companies', type: :request do
       produces 'application/json'
 
       response 200, 'companies found' do
+        schema type: :object,
+          properties: {
+            data: { type: :array, items: { '$ref' => '#/components/schemas/Company' } }
+          }
+                
         before do
           create_list(:company, companies_count)
         end
@@ -24,14 +29,23 @@ RSpec.describe '/companies', type: :request do
       parameter name: :company, in: :body, schema: {
         type: :object,
         properties: {
-          name: { type: :string },
-          cnpj: { type: :string },
-          email: { type: :string }
-        },
-        required: %w[name cnpj email]
+          company: {
+            type: :object,
+            properties: {
+              name: { type: :string },
+              cnpj: { type: :string },
+              email: { type: :string }
+            },
+            required: %w[name cnpj email]
+          }
+        }
       }
 
       response 201, 'company created' do
+        schema type: :object,
+          properties: {
+            data: { '$ref' => '#/components/schemas/Company' }
+          }
         let(:attributes) {
           {
             company: {
@@ -72,6 +86,11 @@ RSpec.describe '/companies', type: :request do
       parameter name: :id, in: :path, type: :string
 
       response 200, 'company found' do
+        schema type: :object,
+          properties: {
+            data: { '$ref' => '#/components/schemas/Company' }
+          }
+
         let(:id) { create(:company).id }
         run_test!
       end
@@ -90,14 +109,24 @@ RSpec.describe '/companies', type: :request do
       parameter name: :company, in: :body, schema: {
         type: :object,
         properties: {
-          name: { type: :string },
-          cnpj: { type: :string },
-          email: { type: :string }
-        },
-        required: %w[name cnpj email]
+          company: {
+            type: :object,
+            properties: {
+              name: { type: :string },
+              cnpj: { type: :string },
+              email: { type: :string }
+            },
+            required: %w[name cnpj email]
+          }
+        }
       }
 
       response 202, 'company updated' do
+        schema type: :object,
+          properties: {
+            data: { '$ref' => '#/components/schemas/Company' }
+          }
+
         let(:id) { company_item.id }
         let(:attributes) {
           {

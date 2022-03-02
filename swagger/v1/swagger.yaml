@@ -3,9 +3,166 @@ openapi: 3.0.1
 info:
   title: API V1
   version: v1
-paths: {}
+paths:
+  "/companies":
+    get:
+      summary: List companies
+      tags:
+      - Companies
+      responses:
+        '200':
+          description: companies found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/Company"
+    post:
+      summary: Create company
+      tags:
+      - Companies
+      parameters: []
+      responses:
+        '201':
+          description: company created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/Company"
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    cnpj:
+                      type: string
+                    email:
+                      type: string
+                  required:
+                  - name
+                  - cnpj
+                  - email
+  "/companies/{id}":
+    get:
+      summary: Show company
+      tags:
+      - Companies
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: company found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/Company"
+        '404':
+          description: company not found
+    put:
+      summary: Update company
+      tags:
+      - Companies
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: company updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/Company"
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    cnpj:
+                      type: string
+                    email:
+                      type: string
+                  required:
+                  - name
+                  - cnpj
+                  - email
+    delete:
+      summary: Delete company
+      tags:
+      - Companies
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: company deleted
+        '404':
+          description: company not found
 components:
-  schemas: {}
+  schemas:
+    Company:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              example: Company name
+            cnpj:
+              type: string
+              example: 01.123.456/0001-01
+            email:
+              type: string
+              example: name@company.com
+            created_at:
+              type: string
+              example: '2020-01-01T00:00:00.000Z'
+            updated_at:
+              type: string
+              example: '2020-01-01T00:00:00.000Z'
 servers:
 - url: http://localhost:3000
   variables:

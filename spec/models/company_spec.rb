@@ -9,6 +9,10 @@ RSpec.describe Company, type: :model do
     end
   end
 
+  describe 'when has associations' do
+    it { is_expected.to have_many(:occupations).dependent(:destroy) }
+  end
+
   describe 'when validations' do
     %i[name cnpj email].each do |field|
       it { is_expected.to validate_presence_of(field) }

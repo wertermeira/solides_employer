@@ -4,6 +4,151 @@ info:
   title: API V1
   version: v1
 paths:
+  "/companies/{company_id}/occupations":
+    get:
+      summary: List occupations
+      tags:
+      - Companies/Occupations
+      parameters:
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List occupations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/Occupation"
+    post:
+      summary: Create occupation
+      tags:
+      - Companies/Occupations
+      parameters:
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Occupation created
+        '422':
+          description: Invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                occupation:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    active:
+                      type: boolean
+                  required:
+                  - name
+                  - active
+  "/companies/{company_id}/occupations/{id}":
+    get:
+      summary: Show occupation
+      tags:
+      - Companies/Occupations
+      parameters:
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Occupation found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/Occupation"
+        '404':
+          description: Occupation not found
+    put:
+      summary: Update occupation
+      tags:
+      - Companies/Occupations
+      parameters:
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Occupation updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    "$ref": "#/components/schemas/Occupation"
+        '422':
+          description: Invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                occupation:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    active:
+                      type: boolean
+                  required:
+                  - name
+                  - active
+    delete:
+      summary: Delete occupation
+      tags:
+      - Companies/Occupations
+      parameters:
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Occupation deleted
+        '404':
+          description: Occupation not found
   "/companies":
     get:
       summary: List companies
@@ -145,6 +290,7 @@ components:
           type: string
         type:
           type: string
+          example: companies
         attributes:
           type: object
           properties:
@@ -157,6 +303,28 @@ components:
             email:
               type: string
               example: name@company.com
+            created_at:
+              type: string
+              example: '2020-01-01T00:00:00.000Z'
+            updated_at:
+              type: string
+              example: '2020-01-01T00:00:00.000Z'
+    Occupation:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          example: occupations
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              example: Occupation name
+            active:
+              type: boolean
             created_at:
               type: string
               example: '2020-01-01T00:00:00.000Z'

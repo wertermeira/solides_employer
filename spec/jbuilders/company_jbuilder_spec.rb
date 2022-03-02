@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe CompanyJbuilder do
   let(:company) { create(:company) }
-  let(:estructure) {
+  let(:estructure) do
     {
       id: company.id,
       type: 'companies',
@@ -14,7 +14,7 @@ RSpec.describe CompanyJbuilder do
         updated_at: company.updated_at
       }
     }
-  }
+  end
 
   describe '#call' do
     it do

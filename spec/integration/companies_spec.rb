@@ -9,10 +9,10 @@ RSpec.describe '/companies', type: :request do
 
       response 200, 'companies found' do
         schema type: :object,
-          properties: {
-            data: { type: :array, items: { '$ref' => '#/components/schemas/Company' } }
-          }
-                
+               properties: {
+                 data: { type: :array, items: { '$ref' => '#/components/schemas/Company' } }
+               }
+
         before do
           create_list(:company, companies_count)
         end
@@ -43,10 +43,10 @@ RSpec.describe '/companies', type: :request do
 
       response 201, 'company created' do
         schema type: :object,
-          properties: {
-            data: { '$ref' => '#/components/schemas/Company' }
-          }
-        let(:attributes) {
+               properties: {
+                 data: { '$ref' => '#/components/schemas/Company' }
+               }
+        let(:attributes) do
           {
             company: {
               name: Faker::Company.name,
@@ -54,13 +54,13 @@ RSpec.describe '/companies', type: :request do
               email: Faker::Internet.email
             }
           }
-        }
+        end
         let(:company) { attributes }
         run_test!
       end
 
       response 422, 'invalid request' do
-        let(:attributes) {
+        let(:attributes) do
           {
             company: {
               name: '',
@@ -68,7 +68,7 @@ RSpec.describe '/companies', type: :request do
               email: Faker::Internet.email
             }
           }
-        }
+        end
         let(:company) { attributes }
         run_test! do
           expect(json_body.dig('errors')).to be_present
@@ -87,9 +87,9 @@ RSpec.describe '/companies', type: :request do
 
       response 200, 'company found' do
         schema type: :object,
-          properties: {
-            data: { '$ref' => '#/components/schemas/Company' }
-          }
+               properties: {
+                 data: { '$ref' => '#/components/schemas/Company' }
+               }
 
         let(:id) { create(:company).id }
         run_test!
@@ -123,12 +123,12 @@ RSpec.describe '/companies', type: :request do
 
       response 202, 'company updated' do
         schema type: :object,
-          properties: {
-            data: { '$ref' => '#/components/schemas/Company' }
-          }
+               properties: {
+                 data: { '$ref' => '#/components/schemas/Company' }
+               }
 
         let(:id) { company_item.id }
-        let(:attributes) {
+        let(:attributes) do
           {
             company: {
               name: Faker::Company.name,
@@ -136,9 +136,9 @@ RSpec.describe '/companies', type: :request do
               email: Faker::Internet.email
             }
           }
-        }
+        end
         let(:company) { attributes }
-        
+
         %w[name cnpj email].each do |field|
           context "when #{field} is updated" do
             run_test! do
@@ -150,7 +150,7 @@ RSpec.describe '/companies', type: :request do
 
       response 422, 'invalid request' do
         let(:id) { company_item.id }
-        let(:attributes) {
+        let(:attributes) do
           {
             company: {
               name: '',
@@ -158,7 +158,7 @@ RSpec.describe '/companies', type: :request do
               email: Faker::Internet.email
             }
           }
-        }
+        end
         let(:company) { attributes }
         run_test! do
           expect(json_body.dig('errors')).to be_present

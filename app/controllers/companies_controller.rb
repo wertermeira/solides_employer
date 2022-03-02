@@ -2,12 +2,12 @@ class CompaniesController < ApplicationController
   before_action :set_company, only: %i[show update destroy]
   def index
     @companies = Company.all
-    data =  @companies.map { |company| CompanyJbuilder.new(company).call }
-    render json: { data: data }
+    data = @companies.map { |company| CompanyJbuilder.new(company).call }
+    render json: { data: data }, status: :ok
   end
 
   def show
-    render json: { data: CompanyJbuilder.new(@company).call }
+    render json: { data: CompanyJbuilder.new(@company).call }, status: :ok
   end
 
   def create

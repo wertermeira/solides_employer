@@ -5,7 +5,10 @@ Rails.application.routes.draw do
 
   constraints format: :json do
     resources :companies do
-      resources :occupations, module: :companies
+      scope module: :companies do
+        resources :occupations
+        resources :employees
+      end
     end
   end
 end

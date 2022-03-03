@@ -1,5 +1,6 @@
 class Occupation < ApplicationRecord
   belongs_to :company
+  has_many :employees, dependent: :nullify
 
   scope :published, -> { where(active: true) }
 

@@ -4,6 +4,146 @@ info:
   title: API V1
   version: v1
 paths:
+  "/companies/{company_id}/employees":
+    get:
+      summary: List employees
+      tags:
+      - Companies/Employees
+      parameters:
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+    post:
+      summary: Create employee
+      tags:
+      - Companies/Employees
+      parameters:
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Unprocessable Entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                employee:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    cpf:
+                      type: string
+                    email:
+                      type: string
+                    phone_number:
+                      type: string
+                    start_date:
+                      type: string
+                      format: date
+                    end_date:
+                      type: string
+                      format: date
+                      nullable: true
+                    montly_salary:
+                      type: string
+                      nullable: true
+                    occupation_id:
+                      type: string
+                  required:
+                  - name
+                  - cpf
+                  - email
+                  - phone_number
+                  - start_date
+                  - occupation_id
+  "/companies/{company_id}/employees/{id}":
+    get:
+      summary: Show employee
+      tags:
+      - Companies/Employees
+      parameters:
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '404':
+          description: Not Found
+    put:
+      summary: Update employee
+      tags:
+      - Companies/Employees
+      parameters:
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                employee:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    cpf:
+                      type: string
+                    email:
+                      type: string
+                    phone_number:
+                      type: string
+                    start_date:
+                      type: string
+                      format: date
+                    end_date:
+                      type: string
+                      format: date
+                      nullable: true
+                    montly_salary:
+                      type: string
+                      nullable: true
+                    occupation_id:
+                      type: string
+                  required:
+                  - name
+                  - cpf
+                  - email
+                  - phone_number
+                  - start_date
+                  - occupation_id
   "/companies/{company_id}/occupations":
     get:
       summary: List occupations

@@ -10,10 +10,7 @@ class OccupationJbuilder
       json.id occupation.id
       json.type 'occupations'
       json.attributes do
-        json.name occupation.name
-        json.active occupation.active
-        json.created_at occupation.created_at
-        json.updated_at occupation.updated_at
+        json.call(occupation, :name, :active, :created_at, :updated_at)
       end
     end.attributes!
   end

@@ -40,3 +40,4 @@ en:
       invalid_start_date: Equal to or less than today
       invalid_phone: Invalid Phone
       invalid_cpf: Invalid Cpf
+      invalid_occupation: Invalid Occupation

@@ -11,6 +11,7 @@ class Employee < ApplicationRecord
 
   validate :validate_start_date, on: :create, if: -> { errors.blank? }
   validate :validate_end_date, if: -> { errors.blank? && end_date.present? }
+  validate :validate_occupation, if: -> { errors.blank? && occupation.present? }
 
   private
 
@@ -20,5 +21,9 @@ class Employee < ApplicationRecord
 
   def validate_end_date
     errors.add(:end_date, I18n.t('errors.messages.invalid_end_date')) if end_date < start_date
+  end
+
+  def validate_occupation
+    errors.add(:occupation, I18n.t('errors.messages.invalid_occupation')) if occupation.company != company
   end
 end

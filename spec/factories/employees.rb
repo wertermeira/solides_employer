@@ -1,8 +1,9 @@
 FactoryBot.define do
   factory :employee do
     company { create(:company) }
+    occupation { nil }
     before :create do |employee|
-      employee.occupation = create(:occupation, company: employee.company)
+      employee.occupation = create(:occupation, company: employee.company) if employee.occupation.blank?
     end
     name { Faker::Name.name }
     cpf { Faker::IDNumber.brazilian_citizen_number(formatted: true) }

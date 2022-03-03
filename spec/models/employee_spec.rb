@@ -4,7 +4,7 @@ RSpec.describe Employee, type: :model do
   let(:company) { create(:company) }
   let(:attributes_employee) do
     {
-      company: create(:company),
+      company: company,
       occupation: create(:occupation, company: company),
       name: Faker::Name.name,
       cpf: Faker::IDNumber.brazilian_citizen_number(formatted: true),
@@ -70,6 +70,21 @@ RSpec.describe Employee, type: :model do
       it '.invalid?' do
         attributes_employee[:start_date] = Date.today
         attributes_employee[:end_date] = Date.today - 1.day
+        expect(described_class.new(attributes_employee)).not_to be_valid
+      end
+    end
+
+    context 'when validate occupation' do
+      before do
+        attributes_employee[:start_date] = Date.today
+      end
+      it '.valid?' do
+        attributes_employee[:occupation] = create(:occupation, company: company)
+        expect(described_class.new(attributes_employee)).to be_valid
+      end
+
+      it '.invalid?' do
+        attributes_employee[:occupation] = create(:occupation, company: create(:company))
         expect(described_class.new(attributes_employee)).not_to be_valid
       end
     end

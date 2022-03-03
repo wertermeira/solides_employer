@@ -1,11 +1,21 @@
 class CompanyJbuilder
-  attr_accessor :company
+  attr_accessor :model
 
-  def initialize(company)
-    @company = company
+  def initialize(model)
+    @model = model
   end
 
   def call
+    if model.respond_to?(:each)
+      model.map { |company| build_json(company) }
+    else
+      build_json(model)
+    end
+  end
+
+  private
+
+  def build_json(company)
     Jbuilder.new do |json|
       json.id company.id
       json.type 'companies'

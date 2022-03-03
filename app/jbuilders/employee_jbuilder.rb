@@ -1,11 +1,21 @@
 class EmployeeJbuilder
-  attr_accessor :employee
+  attr_accessor :model
 
-  def initialize(employee)
-    @employee = employee
+  def initialize(model)
+    @model = model
   end
 
   def call
+    if model.respond_to?(:each)
+      model.map { |employee| build_json(employee) }
+    else
+      build_json(model)
+    end
+  end
+
+  private
+
+  def build_json(employee)
     Jbuilder.new do |json|
       json.id employee.id
       json.type 'employees'

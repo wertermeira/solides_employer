@@ -3,7 +3,7 @@ module Companies
     before_action :set_employee, only: %i[show update destroy]
     def index
       @employees = @company.employees.all
-      data = @employees.map { |employee| EmployeeJbuilder.new(employee).call }
+      data = EmployeeJbuilder.new(@employees).call
       render json: { data: data }, status: :ok
     end
 

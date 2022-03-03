@@ -1,19 +1,26 @@
 class OccupationJbuilder
-  attr_accessor :occupation
+  attr_accessor :model
 
-  def initialize(occupation)
-    @occupation = occupation
+  def initialize(model)
+    @model = model
   end
 
   def call
+    if model.respond_to?(:each)
+      model.map { |occupation| build_json(occupation) }
+    else
+      build_json(model)
+    end
+  end
+
+  private
+
+  def build_json(occupation)
     Jbuilder.new do |json|
       json.id occupation.id
       json.type 'occupations'
       json.attributes do
-        json.name occupation.name
-        json.active occupation.active
-        json.created_at occupation.created_at
-        json.updated_at occupation.updated_at
+        json.call(occupation, :name, :active, :created_at, :updated_at)
       end
     end.attributes!
   end

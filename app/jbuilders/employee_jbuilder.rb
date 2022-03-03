@@ -1,39 +1,34 @@
 class EmployeeJbuilder
-  attr_accessor :employee
+  attr_accessor :model
 
-  def initialize(employee)
-    @employee = employee
+  def initialize(model)
+    @model = model
   end
 
   def call
-    Jbuilder.new do |json|
-      json.id employee.id
-      json.type 'employees'
-      json.attributes do
-        json_attributes(json)
-        json.occupation do
-          json.id employee.occupation.id
-          json.name employee.occupation.name
-        end
-        json.company do
-          json.id employee.company.id
-          json.name employee.company.name
-        end
-      end
-    end.attributes!
+    if model.respond_to?(:each)
+      model.map { |employee| build_json(employee) }
+    else
+      build_json(model)
+    end
   end
 
   private
 
-  def json_attributes(json)
-    json.name employee.name
-    json.cpf employee.cpf
-    json.email employee.email
-    json.phone_number employee.phone_number
-    json.start_date employee.start_date
-    json.end_date employee.end_date
-    json.montly_salary employee.montly_salary
-    json.created_at employee.created_at
-    json.updated_at employee.updated_at
+  def build_json(employee)
+    Jbuilder.new do |json|
+      json.id employee.id
+      json.type 'employees'
+      json.attributes do
+        json.call(employee, :name, :cpf, :email, :phone_number, :start_date,
+                  :end_date, :montly_salary, :created_at, :updated_at)
+        json.occupation do
+          json.call(employee.occupation, :id, :name)
+        end
+        json.company do
+          json.call(employee.company, :id, :name)
+        end
+      end
+    end.attributes!
   end
 end

@@ -34,7 +34,7 @@ rails diagram:all_with_engines
 ```
 Open the doc folder to see the documents
 
-[Controllers brief](/doc/controllers_brief.svg)
-[Controllers complete](/doc/controllers_complete.svg)
-[Models bried](/doc/models_brief.svg)
+[Controllers brief](/doc/controllers_brief.svg)\
+[Controllers complete](/doc/controllers_complete.svg)\
+[Models bried](/doc/models_brief.svg)\
 [Models complete](/doc/models_complete.svg)

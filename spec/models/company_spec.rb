@@ -11,6 +11,7 @@ RSpec.describe Company, type: :model do
 
   describe 'when has associations' do
     it { is_expected.to have_many(:occupations).dependent(:destroy) }
+    it { is_expected.to have_many(:employees).dependent(:destroy) }
   end
 
   describe 'when validations' do

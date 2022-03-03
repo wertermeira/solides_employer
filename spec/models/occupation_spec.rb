@@ -11,6 +11,7 @@ RSpec.describe Occupation, type: :model do
 
   describe 'when has associations' do
     it { is_expected.to belong_to(:company) }
+    it { is_expected.to have_many(:employees).dependent(:nullify) }
   end
 
   describe 'when validations' do

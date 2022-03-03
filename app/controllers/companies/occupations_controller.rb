@@ -1,6 +1,5 @@
 module Companies
-  class OccupationsController < ApplicationController
-    before_action :set_company
+  class OccupationsController < Companies::BaseController
     before_action :set_occupation, only: %i[show update destroy]
 
     def index
@@ -39,10 +38,6 @@ module Companies
 
     def set_occupation
       @occupation = @company.occupations.find(params[:id])
-    end
-
-    def set_company
-      @company = Company.find(params[:company_id])
     end
 
     def occupation_params

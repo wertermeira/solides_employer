@@ -27,7 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_02_201932) do
 
   create_table "employees", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "company_id", null: false
-    t.uuid "occupation_id", null: false
+    t.uuid "occupation_id"
     t.string "name"
     t.string "cpf"
     t.string "email"

@@ -2,7 +2,7 @@ class CreateEmployees < ActiveRecord::Migration[7.0]
   def change
     create_table :employees, id: :uuid do |t|
       t.references :company, null: false, foreign_key: true, type: :uuid
-      t.references :occupation, null: false, foreign_key: true, type: :uuid
+      t.references :occupation, null: true, foreign_key: true, type: :uuid
       t.string :name
       t.string :cpf
       t.string :email

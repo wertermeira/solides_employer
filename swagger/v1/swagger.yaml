@@ -108,6 +108,8 @@ paths:
       responses:
         '202':
           description: Updated
+        '422':
+          description: Unprocessable Entity
       requestBody:
         content:
           application/json:
@@ -144,6 +146,24 @@ paths:
                   - phone_number
                   - start_date
                   - occupation_id
+    delete:
+      summary: Delete employee
+      tags:
+      - Companies/Employees
+      parameters:
+      - name: company_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Deleted
   "/companies/{company_id}/occupations":
     get:
       summary: List occupations

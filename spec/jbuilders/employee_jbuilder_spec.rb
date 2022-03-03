@@ -47,5 +47,12 @@ RSpec.describe EmployeeJbuilder do
         expect(described_class.new(employees).call).to eq(structure_collection)
       end
     end
+
+    context 'when is blank' do
+      let(:all) { [] }
+      it do
+        expect(described_class.new(all).call).to eq([])
+      end
+    end
   end
 end

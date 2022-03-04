@@ -33,7 +33,7 @@ RSpec.describe EmployeeJbuilder do
   describe '#call' do
     context 'when is a single employee' do
       it do
-        expect(described_class.new(employee).call).to eq(structure[employee].deep_stringify_keys)
+        expect(described_class.new(employee).call[:data]).to eq(structure[employee].deep_stringify_keys)
       end
     end
 
@@ -44,14 +44,14 @@ RSpec.describe EmployeeJbuilder do
       end
 
       it do
-        expect(described_class.new(employees).call).to eq(structure_collection)
+        expect(described_class.new(employees).call[:data]).to eq(structure_collection)
       end
     end
 
     context 'when is blank' do
       let(:all) { [] }
       it do
-        expect(described_class.new(all).call).to eq([])
+        expect(described_class.new(all).call[:data]).to eq([])
       end
     end
   end

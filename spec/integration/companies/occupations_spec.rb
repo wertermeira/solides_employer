@@ -6,10 +6,13 @@ RSpec.describe '/companies/{company_id}/occupations', type: :request do
       tags 'Companies/Occupations'
       produces 'application/json'
       parameter name: :company_id, in: :path, type: :string
+      parameter name: :page, in: :query, type: :integer, required: false
+      parameter name: :per_page, in: :query, type: :integer, required: false
 
-      response '200', 'List occupations' do
+      response 200, 'List occupations' do
         schema type: :object, properties: {
-          data: { type: :array, items: { '$ref' => '#/components/schemas/Occupation' } }
+          data: { type: :array, items: { '$ref' => '#/components/schemas/Occupation' } },
+          meta: { type: :object, properties: { pagination: { '$ref' => '#/components/schemas/Pagination' } } }
         }
         let(:occupations_count) { rand(1..10) }
         let(:company) { create(:company) }

@@ -3,19 +3,20 @@ module Companies
     before_action :set_occupation, only: %i[show update destroy]
 
     def index
-      @occupations = @company.occupations.all
-      data = @occupations.map { |occupation| OccupationJbuilder.new(occupation).call }
-      render json: { data: data }, status: :ok
+      @q = @company.occupations.ransack(params[:q])
+      @occupations = @q.result.page(params[:page]).per(params[:per_page])
+      data = OccupationJbuilder.new(@occupations).call
+      render json: data, status: :ok
     end
 
     def show
-      render json: { data: OccupationJbuilder.new(@occupation).call }, status: :ok
+      render json: OccupationJbuilder.new(@occupation).call, status: :ok
     end
 
     def create
       @occupation = @company.occupations.new(occupation_params)
       if @occupation.save
-        render json: { data: OccupationJbuilder.new(@occupation).call }, status: :created
+        render json: OccupationJbuilder.new(@occupation).call, status: :created
       else
         render json: { errors: @occupation.errors }, status: :unprocessable_entity
       end
@@ -23,7 +24,7 @@ module Companies
 
     def update
       if @occupation.update(occupation_params)
-        render json: { data: OccupationJbuilder.new(@occupation).call }, status: :accepted
+        render json: OccupationJbuilder.new(@occupation).call, status: :accepted
       else
         render json: { errors: @occupation.errors }, status: :unprocessable_entity
       end

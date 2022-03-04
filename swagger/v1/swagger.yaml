@@ -15,9 +15,33 @@ paths:
         required: true
         schema:
           type: string
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        required: false
+        schema:
+          type: integer
       responses:
         '200':
           description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      "$ref": "#/components/schemas/Employee"
+                  meta:
+                    type: object
+                    properties:
+                      pagination:
+                        "$ref": "#/components/schemas/Pagination"
     post:
       summary: Create employee
       tags:
@@ -175,6 +199,16 @@ paths:
         required: true
         schema:
           type: string
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        required: false
+        schema:
+          type: integer
       responses:
         '200':
           description: List occupations
@@ -187,6 +221,11 @@ paths:
                     type: array
                     items:
                       "$ref": "#/components/schemas/Occupation"
+                  meta:
+                    type: object
+                    properties:
+                      pagination:
+                        "$ref": "#/components/schemas/Pagination"
     post:
       summary: Create occupation
       tags:
@@ -314,6 +353,17 @@ paths:
       summary: List companies
       tags:
       - Companies
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        required: false
+        schema:
+          type: integer
       responses:
         '200':
           description: companies found
@@ -326,6 +376,11 @@ paths:
                     type: array
                     items:
                       "$ref": "#/components/schemas/Company"
+                  meta:
+                    type: object
+                    properties:
+                      pagination:
+                        "$ref": "#/components/schemas/Pagination"
     post:
       summary: Create company
       tags:
@@ -443,6 +498,65 @@ paths:
           description: company not found
 components:
   schemas:
+    Pagination:
+      type: object
+      properties:
+        current:
+          type: integer
+        previous:
+          type: integer
+          nullable: true
+        next:
+          type: integer
+          nullable: true
+        per_page:
+          type: integer
+          nullable: true
+        pages:
+          type: integer
+          nullable: true
+        total_count:
+          type: integer
+          nullable: true
+    Employee:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          example: employees
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            cpf:
+              type: string
+            email:
+              type: string
+            phone_number:
+              type: string
+              nullable: true
+            montly_salary:
+              type: string
+              nullable: true
+            start_date:
+              type: string
+              format: date
+            end_date:
+              type: string
+              format: date
+              nullable: true
+            occupation_id:
+              type: integer
+              nullable: true
+            created_at:
+              type: string
+              example: '2020-01-01T00:00:00.000Z'
+            updated_at:
+              type: string
+              example: '2020-01-01T00:00:00.000Z'
     Company:
       type: object
       properties:

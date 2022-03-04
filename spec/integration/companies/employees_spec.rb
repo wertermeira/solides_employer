@@ -9,8 +9,14 @@ RSpec.describe '/companies/{company_id}/employees', type: :request do
       tags 'Companies/Employees'
       produces 'application/json'
       parameter name: :company_id, in: :path, type: :string
+      parameter name: :page, in: :query, type: :integer, required: false
+      parameter name: :per_page, in: :query, type: :integer, required: false
 
       response 200, 'Success' do
+        schema type: :object, properties: {
+          data: { type: :array, items: { '$ref' => '#/components/schemas/Employee' } },
+          meta: { type: :object, properties: { pagination: { '$ref' => '#/components/schemas/Pagination' } } }
+        }
         let(:employees_count) { rand(1..10) }
         let(:company) { create(:company) }
         let(:company_id) { company.id }

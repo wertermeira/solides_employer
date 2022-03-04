@@ -1,20 +1,4 @@
-class EmployeeJbuilder
-  attr_accessor :model
-
-  def initialize(model)
-    @model = model
-  end
-
-  def call
-    if model.respond_to?(:each)
-      model.map { |employee| build_json(employee) }
-    else
-      build_json(model)
-    end
-  end
-
-  private
-
+class EmployeeJbuilder < BaseJbuilder
   def build_json(employee)
     Jbuilder.new do |json|
       json.id employee.id
@@ -23,7 +7,7 @@ class EmployeeJbuilder
         json.call(employee, :name, :cpf, :email, :phone_number, :start_date,
                   :end_date, :montly_salary, :created_at, :updated_at)
         json.occupation do
-          json.call(employee.occupation, :id, :name)
+          json.call(employee.occupation, :id, :name) if employee.occupation
         end
         json.company do
           json.call(employee.company, :id, :name)

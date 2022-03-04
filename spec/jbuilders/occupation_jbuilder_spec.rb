@@ -20,7 +20,7 @@ RSpec.describe OccupationJbuilder do
   describe '#call' do
     context 'when is a single occupation' do
       it do
-        expect(described_class.new(occupation).call).to eq(structure[occupation].deep_stringify_keys)
+        expect(described_class.new(occupation).call[:data]).to eq(structure[occupation].deep_stringify_keys)
       end
     end
 
@@ -31,13 +31,13 @@ RSpec.describe OccupationJbuilder do
       end
 
       it do
-        expect(described_class.new(occupations).call).to eq(structure_collection)
+        expect(described_class.new(occupations).call[:data]).to eq(structure_collection)
       end
     end
     context 'when is blank' do
       let(:all) { [] }
       it do
-        expect(described_class.new(all).call).to eq([])
+        expect(described_class.new(all).call[:data]).to eq([])
       end
     end
   end

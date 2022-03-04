@@ -127,6 +127,18 @@ GEM
       activesupport (>= 5.0.0)
     json-schema (2.8.1)
       addressable (>= 2.4)
+    kaminari (1.2.2)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.2)
+      kaminari-activerecord (= 1.2.2)
+      kaminari-core (= 1.2.2)
+    kaminari-actionview (1.2.2)
+      actionview
+      kaminari-core (= 1.2.2)
+    kaminari-activerecord (1.2.2)
+      activerecord
+      kaminari-core (= 1.2.2)
+    kaminari-core (1.2.2)
     kwalify (0.7.2)
     launchy (2.5.0)
       addressable (~> 2.7)
@@ -201,6 +213,10 @@ GEM
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
     rake (13.0.6)
+    ransack (2.5.0)
+      activerecord (>= 5.2.4)
+      activesupport (>= 5.2.4)
+      i18n
     reek (6.1.0)
       kwalify (~> 0.7.0)
       parser (~> 3.1.0)
@@ -321,11 +337,13 @@ DEPENDENCIES
   factory_bot_rails
   faker
   jbuilder
+  kaminari
   pg (~> 1.1)
   puma (~> 5.0)
   rack-cors
   railroady
   rails (~> 7.0.2, >= 7.0.2.2)
+  ransack
   rspec-rails
   rswag-api
   rswag-specs

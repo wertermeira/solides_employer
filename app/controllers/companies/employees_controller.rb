@@ -2,19 +2,20 @@ module Companies
   class EmployeesController < Companies::BaseController
     before_action :set_employee, only: %i[show update destroy]
     def index
-      @employees = @company.employees.all
+      @q = @company.employees.ransack(params[:q])
+      @employees = @q.result.page(params[:page]).per(params[:per_page])
       data = EmployeeJbuilder.new(@employees).call
-      render json: { data: data }, status: :ok
+      render json: data, status: :ok
     end
 
     def show
-      render json: { data: EmployeeJbuilder.new(@employee).call }, status: :ok
+      render json: EmployeeJbuilder.new(@employee).call, status: :ok
     end
 
     def create
       @employee = @company.employees.new(employee_params)
       if @employee.save
-        render json: { data: EmployeeJbuilder.new(@employee).call }, status: :created
+        render json: EmployeeJbuilder.new(@employee).call, status: :created
       else
         render json: { errors: @employee.errors }, status: :unprocessable_entity
       end
@@ -22,7 +23,7 @@ module Companies
 
     def update
       if @employee.update(employee_params)
-        render json: { data: EmployeeJbuilder.new(@employee).call }, status: :accepted
+        render json: EmployeeJbuilder.new(@employee).call, status: :accepted
       else
         render json: { errors: @employee.errors }, status: :unprocessable_entity
       end

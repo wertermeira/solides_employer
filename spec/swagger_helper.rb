@@ -14,6 +14,39 @@ RSpec.configure do |config|
       paths: {},
       components: {
         schemas: {
+          Pagination: {
+            type: :object,
+            properties: {
+              current: { type: :integer },
+              previous: { type: :integer, nullable: true },
+              next: { type: :integer, nullable: true },
+              per_page: { type: :integer, nullable: true },
+              pages: { type: :integer, nullable: true },
+              total_count: { type: :integer, nullable: true }
+            }
+          },
+          Employee: {
+            type: :object,
+            properties: {
+              id: { type: :string },
+              name: { type: :string, example: 'employees' },
+              attributes: {
+                type: :object,
+                properties: {
+                  name: { type: :string },
+                  cpf: { type: :string },
+                  email: { type: :string },
+                  phone_number: { type: :string, nullable: true },
+                  montly_salary: { type: :string, nullable: true },
+                  start_date: { type: :string, format: :date },
+                  end_date: { type: :string, format: :date, nullable: true },
+                  occupation_id: { type: :integer, nullable: true },
+                  created_at: { type: :string, example: '2020-01-01T00:00:00.000Z' },
+                  updated_at: { type: :string, example: '2020-01-01T00:00:00.000Z' }
+                }
+              }
+            }
+          },
           Company: {
             type: :object,
             properties: {

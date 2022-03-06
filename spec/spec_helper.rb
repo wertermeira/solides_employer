@@ -1,7 +1,10 @@
 
 require 'simplecov'
 
-SimpleCov.start 'rails'
+SimpleCov.start 'rails' do
+  enable_coverage :branch
+end
+SimpleCov.minimum_coverage line: 100
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true

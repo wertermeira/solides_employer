@@ -50,33 +50,33 @@ RSpec.describe Employee, type: :model do
 
     context 'when validate start_date' do
       it '.valid?' do
-        attributes_employee[:start_date] = Faker::Date.between(from: 2.years.ago, to: Date.today)
+        attributes_employee[:start_date] = Faker::Date.between(from: 2.years.ago, to: Time.zone.today)
         expect(described_class.new(attributes_employee)).to be_valid
       end
 
       it '.invalid?' do
-        attributes_employee[:start_date] = Date.today + 1.day
+        attributes_employee[:start_date] = Time.zone.today + 1.day
         expect(described_class.new(attributes_employee)).not_to be_valid
       end
     end
 
     context 'when validate end_date' do
       it '.valid?' do
-        attributes_employee[:start_date] = Faker::Date.between(from: 2.years.ago, to: Date.today)
-        attributes_employee[:end_date] = Date.today + 1.day
+        attributes_employee[:start_date] = Faker::Date.between(from: 2.years.ago, to: Time.zone.today)
+        attributes_employee[:end_date] = Time.zone.today + 1.day
         expect(described_class.new(attributes_employee)).to be_valid
       end
 
       it '.invalid?' do
-        attributes_employee[:start_date] = Date.today
-        attributes_employee[:end_date] = Date.today - 1.day
+        attributes_employee[:start_date] = Time.zone.today
+        attributes_employee[:end_date] = Time.zone.today - 1.day
         expect(described_class.new(attributes_employee)).not_to be_valid
       end
     end
 
     context 'when validate occupation' do
       before do
-        attributes_employee[:start_date] = Date.today
+        attributes_employee[:start_date] = Time.zone.today
       end
       it '.valid?' do
         attributes_employee[:occupation] = create(:occupation, company: company)

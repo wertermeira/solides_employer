@@ -9,7 +9,7 @@ FactoryBot.define do
     cpf { Faker::IDNumber.brazilian_citizen_number(formatted: true) }
     email { Faker::Internet.email }
     phone_number { '11-1111-1111' }
-    start_date { Faker::Date.between(from: 2.years.ago, to: Date.today) }
+    start_date { Faker::Date.between(from: 2.years.ago, to: Time.zone.today) }
     end_date { nil }
     montly_salary { '9.99' }
   end

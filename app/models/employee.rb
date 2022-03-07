@@ -16,7 +16,7 @@ class Employee < ApplicationRecord
   private
 
   def validate_start_date
-    errors.add(:start_date, I18n.t('errors.messages.invalid_start_date')) if start_date > Date.today
+    errors.add(:start_date, I18n.t('errors.messages.invalid_start_date')) if start_date > Time.zone.today
   end
 
   def validate_end_date

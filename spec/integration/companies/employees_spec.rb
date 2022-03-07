@@ -38,7 +38,7 @@ RSpec.describe '/companies/{company_id}/employees', type: :request do
             cpf: Faker::IDNumber.brazilian_citizen_number(formatted: true),
             email: Faker::Internet.email,
             phone_number: '11-11111-1111',
-            start_date: Faker::Date.between(from: 2.years.ago, to: Date.today),
+            start_date: Faker::Date.between(from: 2.years.ago, to: Time.zone.today),
             montly_salary: Faker::Number.decimal(l_digits: 3, r_digits: 2),
             occupation_id: create(:occupation, company: company).id
           }

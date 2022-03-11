@@ -19,8 +19,19 @@ RSpec.describe '/companies', type: :request do
         before do
           create_list(:company, companies_count)
         end
-        run_test! do
-          expect(json_body.dig('data').count).to eq(companies_count)
+        context 'when has filters' do
+          let(:page) { 2 }
+          let(:per_page) { 20 }
+          let(:companies_count) { 25 }
+          run_test! do
+            expect(json_body.dig('data').count).to eq(5)
+          end
+        end
+
+        context 'when without filters' do
+          run_test! do
+            expect(json_body.dig('data').count).to eq(companies_count)
+          end
         end
       end
     end

@@ -1,7 +1,7 @@
 class BaseJbuilder
   attr_accessor :model, :options
 
-  def initialize(model, options: { per_page: 20 })
+  def initialize(model, options: {})
     @model = model
     @options = options
   end
@@ -33,7 +33,7 @@ class BaseJbuilder
 
     current = model.current_page
     total = model.total_pages
-    per_page = model.try(:per_page) || options[:per_page]
+    per_page = model.try(:limit_value)
     Jbuilder.new do |json|
       json.current current
       json.previous current > 1 ? (current - 1) : nil
